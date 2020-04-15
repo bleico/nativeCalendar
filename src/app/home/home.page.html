@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let cal of calendars" tappable>
-      <button ion-button icon-only item-start clear (click)="addEvent(cal)">
+      <button ion-button icon-only item-start clear (click)="newCalendar(cal)">
         <ion-icon name="add"></ion-icon>
       </button>
       {{ cal.name }}

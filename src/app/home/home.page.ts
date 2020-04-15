@@ -51,8 +51,47 @@ export class HomePage {
   }
 
   openCal(cal) {
-    this.router.navigate(['CalDetailsPage', {
-      name: cal.name
-    }]);
+    /*
+        this.router.navigate(['CalDetailsPage', {
+          name: cal.name
+        }]);
+    */
+
+    this.calendar.openCalendar(new Date()).then(
+      (msg) => { console.log(msg); },
+      (err) => { console.log(err); }
+    );
+
+  }
+
+  newCalendar (cal) {
+    const createCalOptions = this.calendar.getCreateCalendarOptions();
+    createCalOptions.calendarName = 'Your24/7Doc';
+    this.calendar.createCalendar(createCalOptions.calendarName).then(() => {
+
+    const date = new Date();
+    const options = {
+      calendarId: cal.id,
+      calendarName: createCalOptions.calendarName,
+      url: 'https://Your24-7Doc.com',
+      firstReminderMinutes: 5,
+    };
+      this.calendar
+      .createEventInteractivelyWithOptions(
+        'My new Event',
+        'Münster',
+        'Special Notes',
+        date,
+        date,
+        options
+      )
+      .then(
+        res => { },
+        err => {
+          console.log('err: ', err);
+        }
+      );
+    }).catch((error) =>
+    console.log(error));
   }
 }
